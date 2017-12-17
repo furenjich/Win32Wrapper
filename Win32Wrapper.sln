@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Win32Wrapper", "Win32Wrapper\Win32Wrapper.csproj", "{21907797-8E3C-4127-80C9-B87EF380DC2C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Win32WrapperTest", "Win32WrapperTest\Win32WrapperTest.csproj", "{A0380569-AFB3-4F7A-8B0A-15CD19F255ED}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{21907797-8E3C-4127-80C9-B87EF380DC2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21907797-8E3C-4127-80C9-B87EF380DC2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21907797-8E3C-4127-80C9-B87EF380DC2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21907797-8E3C-4127-80C9-B87EF380DC2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0380569-AFB3-4F7A-8B0A-15CD19F255ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0380569-AFB3-4F7A-8B0A-15CD19F255ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0380569-AFB3-4F7A-8B0A-15CD19F255ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0380569-AFB3-4F7A-8B0A-15CD19F255ED}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
