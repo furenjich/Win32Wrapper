@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Runtime.CompilerServices;
 using Yac.Win32Wrapper.Raw;
 
 namespace Yac
@@ -20,34 +21,36 @@ namespace Yac
             private const uint dbg = 2;
             private static string str;
 
-            public static string Info(string s)
-            {
-                Kernel32.OutputDebugString(makeString(s, info));
+            public static string Info(string s, [CallerFilePath]string filePath = null, [CallerLineNumber]int line = 0)
+            {                
+                Kernel32.OutputDebugString(makeString(s, info, filePath, line));
                 return str;
             }
 
-            public static string Err(string s)
+            public static string Err(string s, [CallerFilePath]string filePath = null, [CallerLineNumber]int line = 0)
             {
-                Kernel32.OutputDebugString(makeString(s, err));
+                Kernel32.OutputDebugString(makeString(s, err, filePath, line));
                 return str;
             }
 
-            public static string ErrFunc(string func)
+            public static string ErrFunc(string func, [CallerFilePath]string filePath = null, [CallerLineNumber]int line = 0)
             {
                 var lastError = Marshal.GetLastWin32Error();
-                Kernel32.OutputDebugString(makeString(func + " failed(" + lastError.ToString() + ")", err));
+                Kernel32.OutputDebugString(makeString(func + " failed(" + lastError.ToString() + ")", err, filePath, line));
                 return str;
             }
 
-            public static string Dbg(string s)
+            public static string Dbg(string s, [CallerFilePath]string filePath = null, [CallerLineNumber]int line = 0)
             {
-                Kernel32.OutputDebugString(makeString(s, dbg));
+                Kernel32.OutputDebugString(makeString(s, dbg, filePath, line));
                 return str;
             }
 
-            private static string makeString(string s, uint type)
+            private static string makeString(string s, uint type, string filePath, int line)
             {
-                str = "[" + Path.GetFileNameWithoutExtension(Environment.GetCommandLineArgs()[0]) + "]"; // current file name
+                var applicationName = Path.GetFileNameWithoutExtension(Environment.GetCommandLineArgs()[0]);
+                var sourceFileName = Path.GetFileNameWithoutExtension(filePath);
+                str = "[" + applicationName + "][" + sourceFileName + ":" + line + "]";
                 switch (type)
                 {
                     case info:
