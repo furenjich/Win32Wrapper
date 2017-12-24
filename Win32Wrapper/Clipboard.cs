@@ -97,7 +97,7 @@ namespace Yac
                 try
                 {
                     var pbData = converter(data);
-                    IntPtr mem = Marshal.AllocHGlobal(pbData.Length + 1);
+                    IntPtr mem = Marshal.AllocCoTaskMem(pbData.Length + 1);
                     Marshal.Copy(pbData, 0, mem, pbData.Length);
                     return User32.SetClipboardData(format, mem);
                 }

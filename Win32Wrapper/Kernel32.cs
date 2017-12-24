@@ -1,23 +1,19 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace Yac
+namespace Yac.Win32Wrapper.Raw
 {
-    namespace Win32Wrapper
+
+    public class Kernel32
     {
-        namespace Raw
-        {
-            public class Kernel32
-            {   
-                [DllImport("kernel32.dll", SetLastError = true)]
-                public static extern IntPtr GlobalLock(IntPtr hMem);
+        [DllImport("kernel32.dll", SetLastError = true)]
+        public static extern IntPtr GlobalLock(IntPtr hMem);
 
-                [DllImport("kernel32.dll", SetLastError = true)]
-                public static extern bool GlobalUnlock(IntPtr hMem);
+        [DllImport("kernel32.dll", SetLastError = true)]
+        public static extern bool GlobalUnlock(IntPtr hMem);
 
-                [DllImport("kernel32.dll", SetLastError = true)]
-                public static extern void OutputDebugString(string lpOutputString);
-            }
-        }
+        [DllImport("kernel32.dll", SetLastError = true)]
+        public static extern void OutputDebugString(string lpOutputString);
     }
 }
+
