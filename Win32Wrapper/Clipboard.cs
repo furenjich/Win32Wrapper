@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Windows.Forms;
+using System.Threading;
 using System.Text;
-using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using Yac.Win32Wrapper.Raw;
+
 
 namespace Yac
 {
@@ -120,6 +120,47 @@ namespace Yac
                 clipboardHandle = IntPtr.Zero;
                 instance = null;
             }                                 
-        }   
+        }
+
+        //http://anis774.net/codevault/clipboardwatcher.html
+        public sealed class ClipboardWatcherForm : Form
+        {
+            private IntPtr nextHandle;
+            private ThreadStart proc;
+
+            public void StartWatch(ThreadStart proc)
+            {
+                this.proc = proc;
+                nextHandle = User32.SetClipboardViewer(Handle);
+            }
+
+            protected override void WndProc(ref Message m)
+            {
+                if (m.Msg == User32.WindowMesssage.WM_DRAWCLIPBOARD)
+                {
+                    User32.SendMessage(nextHandle, m.Msg, m.WParam, m.LParam);
+                    proc();
+                }
+                else if (m.Msg == User32.WindowMesssage.WM_CHANGECBCHAIN)
+                {
+                    if (m.WParam == nextHandle)
+                    {
+                        nextHandle = m.LParam;
+                    }
+                    else
+                    {
+                        User32.SendMessage(nextHandle, m.Msg, m.WParam, m.LParam);
+                    }
+                }
+                base.WndProc(ref m);
+            }
+
+            protected override void Dispose(bool disposing)
+            {
+                User32.ChangeClipboardChain(Handle, nextHandle);
+                base.Dispose(disposing);
+            }
+        }
+
     }
 }
